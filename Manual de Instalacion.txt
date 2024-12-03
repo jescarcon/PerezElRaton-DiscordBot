@@ -1,0 +1,68 @@
+Instalación
+Para instalar y ejecutar Pérez el Ratón en tu entorno local, sigue los pasos a continuación:
+
+0.Crea tu bot en Discord Developer Portal, recuerda que ahí es donde se crean los bot y se invita al servidor
+sólo su funcionamiento es el que estamos programando aquí.
+
+
+1. Clona este repositorio
+Primero, debes clonar el repositorio de GitHub. Abre tu terminal o línea de comandos y ejecuta:
+
+>git clone https://github.com/tuusuario/perez-el-raton.git
+>cd perez-el-raton
+
+
+
+2. Configura el entorno virtual
+Es recomendable crear un entorno virtual para evitar conflictos de dependencias con otros proyectos.
+
+>python -m venv venv
+>source venv/bin/activate   # En Windows: venv\Scripts\activate
+
+Una vez activado el entorno virtual, instala las dependencias necesarias:
+
+>pip install -r requirements.txt
+
+
+
+3. Configura PostgreSQL
+Este bot utiliza PostgreSQL para almacenar información sobre los usuarios. Si no tienes PostgreSQL instalado, puedes seguir la guía oficial para instalarlo.
+
+Crea la base de datos
+En PostgreSQL, crea una base de datos para el bot:
+
+CREATE DATABASE Ratones;
+
+Crea la tabla de usuarios y la de votos
+Luego, crea una tabla en la base de datos para almacenar la información de los usuarios y la de votos:
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    discord_id BIGINT UNIQUE NOT NULL,
+    username VARCHAR(255) NOT NULL,
+    points FLOAT DEFAULT 0,
+    votes INT DEFAULT 0
+);
+
+CREATE TABLE votes (
+    id SERIAL PRIMARY KEY,
+    voter_id BIGINT NOT NULL,
+    voted_id BIGINT NOT NULL,
+    score FLOAT NOT NULL
+);
+
+
+4. Configura tus variables
+
+DB_NAME = "RatonesDB"
+DB_USER = "postgres" (normalmente en postgresql)
+DB_PASSWORD = "tu_password"
+DB_HOST = "localhost"
+DB_PORT = "5432" (normalmente en postgresql)
+
+5. Ejecuta el bot
+Una vez que hayas configurado todo lo anterior, puedes iniciar el bot ejecutando el siguiente comando:
+
+>python Bot.py
+
+El bot debería estar funcionando ahora y podrás invitarlo a tu servidor de Discord.
